@@ -1,0 +1,9 @@
+步骤：
+1. compilation
+make sure client.jar and ClientMain.java are in the current diretory
+from terminal, type: javac -cp client.jar ClientMain.java
+
+
+2. execution
+on Linux - from terminal, type: java -cp client.jar:. ClientMain 12345 1000
+on Windows - from terminal, type: java -cp client.jar;. ClientMain 12345 1000
