@@ -1,0 +1,29 @@
+COMP2207 Distributed Systems and Networks - Coursework Feedback
+
+*** Section 1: The datastore works in compliance with the protocol and correctly serves sequential requests from a single client
+
+* Test 1.1: Single client sending requests sequentially - datastore configured with 3 Dstores and replication factor 3
+Initial LIST request, expect to receive an empty list: PASSED
+Initial STORE request: PASSED
+Second STORE request to trigger ERROR_FILE_ALREADY_EXISTS: PASSED
+Second LIST request, expecting a one-file-list as response: PASSED
+Initial LOAD request: PASSED
+Second LOAD request, without actually loading from any Dstore, rather sending RELOAD requests to the Controller until an error is received: PASSED
+First REMOVE request: PASSED
+Another LIST request, expecting to receive an empty list: PASSED
+Another STORE request, without actually sending the file to any Dstore: PASSED
+LOAD request for a file that does not exist: PASSED
+REMOVE request for a file that does not exist: PASSED
+
+*** Section: The datastore correctly serves concurrent requests from more clients
+
+* Test 3.1: Multiple clients concurrently storing, loading and removing the same file - datastore configured with 3 Dstores and replication factor 3
+Check the controller is multi-threading by first connecting a client, then connecting another client that sends a list command; this second client should be served while the other is still connected: PASSED
+Clients synchronise to store the same file as concurrently as possible (only one should succeed): PASSED
+Clients synchronise to load the same file as concurrently as possible (all should succeed): PASSED
+Clients synchronise to remove the same file as concurrently as possible (only one should succeed): PASSED
+
+
+* Test 4.2: STORE, LIST, LOAD, REMOVE, LIST requests from a single Client, one Dstore crashes after the first STORE - datastore configured with 5 Dstores and replication factor 3
+All operations correctly served despite one Dstore crashed: PASSED
+
